@@ -1,0 +1,19 @@
+{
+  "name": "manageproductwithimage",
+  "version": "1.0.3",
+  "description": "Add product with image",
+  "main": "dproducto.js",
+  "scripts": {
+    "start": "node dproducto"
+  },
+  "author": {
+    "name": "rwkama28"
+  },
+  "repository": {
+    "url": "https://github.com/rwkama/manageproductwithimage.git"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "util": "^0.12.3"
+  }
+}
