@@ -3,10 +3,10 @@ const util = require('util');
 
 
 const con = mysql.createConnection({
-    host: "sql10.freemysqlhosting.net",
-    user: "sql10366350",
-    password: "Df4sZVtIV8",
-    database: "sql10366350"
+    host: "b9jbfcptjkebgumjgqcp-mysql.services.clever-cloud.com",
+    user: "uspxlfrkmj6n77hh",
+    password: "WVbnrB6romi7rSxKVTz9",
+    database: "b9jbfcptjkebgumjgqcp"
 
 });
 
@@ -21,7 +21,6 @@ const getProductos = async () => {
         array.push(objecto);
     }
     return array;
-    con.end();
 }
 const getProducto = async (id) => {
     
@@ -29,40 +28,55 @@ const getProducto = async (id) => {
     let row = await utliquery(sqllist,id);
     objecto = new Producto(row[0].IdProducto, row[0].ImgProducto);
     return objecto;
-    con.end();
+  
    
 }
 const updateProducto = async (producto) => {
     sqlupdate = "UPDATE Producto SET ImgProducto= ? WHERE IdProducto = ?;";
     values = [producto.imgproducto, producto.idproducto]
     let x = await con.query(sqlupdate, values);
-    con.end();
 }
 async function insertProducto(producto) {
-    sqlinsert = "insert into Producto values ?";
-    values = [[null, producto.imgproducto]]
-    let x = await con.query(sqlinsert, [values]);
-    con.end();
+
+    sqlinsert = "insert into Producto values (null,?);";
+    values = [producto.imgproducto]
+        let x = await con.query(sqlinsert, values);
+   
 };
 async function deleteProducto(producto) {
-    sqldelete = "delete from Producto where IdProducto = ?;";
-    values = [producto.idproducto]
-    let x = await con.query(sqldelete, values);
-    con.end();
-
+   
+        sqldelete = "delete from Producto where IdProducto = ?;";
+        values = [producto.idproducto]
+        let x = await con.query(sqldelete, values);
+ 
 };
 
 class Producto
 {
+    idproducto = 0; 
+    imgproducto = "";
+
+     getIdProducto() {
+        return this.idproducto;
+    }
+    setIdProducto(x) {
+        this.idproducto = x;
+    }
+    getImgProducto() {
+        return this.imgproducto;
+    }
+    setImgProducto(x) {
+        this.imgproducto = x;
+    }
     constructor(idproducto, imgproducto) {
-        this.idproducto = idproducto;
-        this.imgproducto = imgproducto;
+        this.setIdProducto(idproducto);
+        this.setImgProducto(imgproducto);
        
     }
 }
 module.exports = { getProductos, insertProducto, getProducto, updateProducto,deleteProducto, Producto};
-//var c = new Producto(3, "kneptunoh.jpg");
-//updateProducto(c).then(data => {
+//var c = new Producto(555, "kneptunoh.jpg");
+//insertProducto(c).then(data => {
 //    console.log(data)
 //})
 //deleteProducto(c).then(data => {
